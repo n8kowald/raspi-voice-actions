@@ -6,8 +6,8 @@
 # Created by @mikerr: https://www.raspberrypi.org/forums/viewtopic.php?p=1158827#p1158827
 #
 # Dependencies:
-#   * vlc - install: sudo apt-get install vlc
 #   * mps-youtube, youtube-dl - install: sudo pip3 install mps-youtube youtube-dl
+#   * vlc - run: sudo apt-get install vlc
 ##
 import logging
 import RPi.GPIO as gpio
@@ -31,14 +31,12 @@ class play(object):
         playshell.stdin.write(bytes('/' + track + '\n1\n', 'utf-8'))
         playshell.stdin.flush()
 
+        # Stop voice by pressing the button
         gpio.setmode(gpio.BCM)
         gpio.setup(23, gpio.IN)
-
-        while gpio.input(23):
-             time.sleep(1)
-
         while True:
             if gpio.input(23):
+                logging.info("Stopping YouTube playback")
                 pkill = subprocess.Popen(["/usr/bin/pkill","vlc"],stdin=subprocess.PIPE)
                 break
             time.sleep(0.1)

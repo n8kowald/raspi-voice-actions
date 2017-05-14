@@ -26,6 +26,7 @@ sys.path.append(os.path.dirname(os.path.realpath(__file__)) + '/actions/')
 from play import *
 from radio import *
 from power import *
+from readrssfeed import *
 
 # =============================================================================
 #
@@ -229,6 +230,7 @@ def make_actor(say):
     actor.add_keyword(_('reboot'), power(say, 'reboot'))
     actor.add_keyword(_('radio'), radio(say,_('radio')))
     actor.add_keyword(_('play'), play(say,_('play')))
+    actor.add_keyword(_('news headlines'), readrssfeed(say, "http://feeds.bbci.co.uk/news/rss.xml?edition=uk", 10))
 
     return actor
 

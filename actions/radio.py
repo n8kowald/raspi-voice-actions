@@ -5,7 +5,8 @@
 #
 # Created by @ktinkerer: https://www.raspberrypi.org/forums/viewtopic.php?p=1160155#p1160155
 #
-# Dependencies: vlc - run: sudo apt-get install vlc
+# Dependencies:
+#   * vlc - install: sudo apt-get install vlc
 ##
 import logging
 import RPi.GPIO as gpio
