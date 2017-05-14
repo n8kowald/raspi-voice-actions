@@ -12,7 +12,8 @@ import logging
 # feedparser - install: sudo pip install feedparser
 #
 # Usage:
-# actor.add_keyword(_('the news'), readrssfeed(say, "http://feeds.bbci.co.uk/news/rss.xml?edition=uk#",10))
+# actor.add_keyword(_('news headlines'), readrssfeed(say, "http://feeds.bbci.co.uk/news/rss.xml?edition=uk", "title", 10))
+# actor.add_keyword(_('currency check'), readrssfeed(say, "http://gbp.fxexchangerate.com/AUD.xml", "summary", 1, True))
 ##
 class readrssfeed(object):
     # This is the BBC rss feed for top news in the uk
@@ -21,9 +22,11 @@ class readrssfeed(object):
     #######################################################################################
     # constructor
     # url - rss feed url to read
+    # targetElement - The element in the RSS feed you want to say
     # feedCount - number of records to read
     # -(for example bbc rss returns around 62 items and you may not want all of
     # them read out so this allows limiting
+    # firstLineOnly - Speak the first line of the result only
     #######################################################################################
     def __init__(self, say, url, targetElement, feedCount, firstLineOnly = False):
         self.say = say
