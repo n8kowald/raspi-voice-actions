@@ -17,10 +17,10 @@ rm ~/voice-recognizer-raspi/src/action.py
 sudo ln -s ~/raspi-voice-actions/action.py action.py
 ```
 ## Adding actions
-- Add your module into the actions directory
+- Add your module into the actions directory: convention ModuleAction.py
 - Import your module at the top of actions.py
 ```bash
-from play import *
+from PlayAction import *
 ```
 
 ### Raspberry Pi AIY Projects forum
