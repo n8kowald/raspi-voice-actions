@@ -19,8 +19,10 @@ import subprocess
 import actionbase
 
 # Import modules from a custom folder
+import os
 import sys
-sys.path.append('/home/pi/raspi-voice-actions/')
+# Get dir this is checked out to
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + '/actions/')
 from play import *
 from radio import *
 from power import *

@@ -1,7 +1,5 @@
 # raspi-voice-actions
-I don't know if this is a good idea.  
-I want to separate my custom code from the default aiyprojects-raspbian repo code.  
-Want it in GitHub for sharing and idea generation.
+Created this repo to separate custom code from the default aiyprojects-raspbian repo code.  
 
 ## Custom actions for AIY Projects
 Custom actions for https://github.com/google/aiyprojects-raspbian/blob/master/src/action.py
