@@ -16,6 +16,12 @@ rm ~/voice-recognizer-raspi/src/action.py
 # Create the symlink
 sudo ln -s ~/raspi-voice-actions/action.py action.py
 ```
+## Adding actions
+- Add your module into the actions directory
+- Import your module at the top of actions.py
+```bash
+from play import *
+```
 
 ### Raspberry Pi AIY Projects forum
 All of these actions were contributed by members of the Raspberry Pi forums.  

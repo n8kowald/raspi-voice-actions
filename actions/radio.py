@@ -63,7 +63,7 @@ class radio(object):
             logging.info("Looking for this station in the radio_stations dictionary: " + voice_command)
             station = self.get_station(voice_command)
         except KeyError:
-            self.say("Voice command not recognised. To hear a list of available radio stations, say radio stations")
+            self.say("Voice command not recognised. To hear a list of available radio stations say, radio stations")
             return
 
         p = subprocess.Popen(["/usr/bin/cvlc",station],stdin=subprocess.PIPE,stdout=subprocess.PIPE)
