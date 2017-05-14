@@ -1,6 +1,7 @@
 # raspi-voice-actions
 I don't know if this is a good idea.  
-I want to store my action.py, and action modules in GitHub for sharing and idea generation.
+I want to separate my custom code from the default aiyprojects-raspbian repo code.  
+Want it in GitHub for sharing and idea generation.
 
 ## Custom actions for AIY Projects
 Custom actions for https://github.com/google/aiyprojects-raspbian/blob/master/src/action.py
@@ -14,5 +15,6 @@ cp ~/voice-recognizer-raspi/src/action.py ~/voice-recognizer-raspi/src/action-ba
 # Remove current action.py
 rm ~/voice-recognizer-raspi/src/action.py
 
+# Create the symlink
 sudo ln -s ~/raspi-voice-actions/action.py action.py
 ```

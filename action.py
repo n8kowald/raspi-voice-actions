@@ -18,9 +18,12 @@ import logging
 import subprocess
 import actionbase
 
-# Added
-import RPi.GPIO as gpio
-import time
+# Import modules from a custom folder
+import sys
+sys.path.append('/home/pi/raspi-voice-actions/')
+from play import *
+from radio import *
+from power import *
 
 # =============================================================================
 #
@@ -199,118 +202,7 @@ class RepeatAfterMe(object):
 # =========================================
 # Makers! Implement your own actions here.
 # =========================================
-class playRadio(object):
-    default_station = 'http://media-ice.musicradio.com/LBCLondonMP3Low.m3u'
-    radio_stations = {
-        'radio': default_station,
-        'radio lbc': 'http://media-ice.musicradio.com/LBCLondonMP3Low.m3u',
-        'radio london': "http://www.radiofeeds.co.uk/bbclondon.pls",
-        'radio home': "http://www.australianliveradio.com/5aa.m3u",
-        'radio fresh fm': "http://www.fresh927.com.au/streams/liveAAC.m3u",
-        'radio nova': "http://www.australianliveradio.com/nova919.m3u",
-        'radio 1': "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p?s=1494265262",
-        'radio 2': "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio2_mf_p?s=1494265194",
-        'radio 3': "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio3_mf_p?s=1494265402",
-        'radio 4': "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio4fm_mf_p?s=1494265402",
-        'radio 5': "http://open.live.bbc.co.uk/mediaselector/5/redir/version/2.0/mediaset/http-icy-mp3-a-stream/proto/http/vpid/bbc_radio_five_live",
-        'radio 6': "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_6music_mf_p?s=1494265223",
-        'radio 1 extra': "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1xtra_mf_p?s=1494265403",
-        'radio 4 extra': "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio4extra_mf_q?s=1494265404",
-        'radio world service': "http://wsdownload.bbc.co.uk/worldservice/meta/live/shoutcast/mp3/eieuk.pls",
-        'radio news': "http://wsdownload.bbc.co.uk/worldservice/css/96mp3/latest/bbcnewssummary.mp3",
-    }
 
-    def __init__(self, say, keyword):
-        self.say = say
-        self.keyword = keyword
-
-    def get_station(self, station_name):
-        return self.radio_stations[station_name]
-
-    def list_stations(self):
-        self.say("Here are the available radio stations")
-        # TODO: Maintain order of dict
-        for station in self.radio_stations:
-            self.say(station)
-
-    def run(self, voice_command):
-        # List available stations
-        if (voice_command.lower() == 'radio stations'):
-            self.list_stations()
-            return
-
-        global station
-        try:
-            self.say("Tuning the radio into " + voice_command)
-            logging.info("Looking for station with case: " + voice_command.lower())
-            station = self.get_station(voice_command.lower())
-        except KeyError:
-            # Default radio station
-            station = self.default_station
-            self.say("Voice command not recognised. Playing default station: LBC Radio")
-
-        p = subprocess.Popen(["/usr/bin/cvlc",station],stdin=subprocess.PIPE,stdout=subprocess.PIPE)
-        p.poll()
-
-        gpio.setmode(gpio.BCM)
-        gpio.setup(23, gpio.IN)
-
-        while True:
-            if gpio.input(23):
-                logging.info("stopping radio")
-                p.kill()
-                break
-            time.sleep(0.1)
-
-# Play music from YouTube
-playshell = None
-class play(object):
-
-    def __init__(self, say, keyword):
-        self.say = say
-        self.keyword = keyword
-
-    def run(self, voice_command):
-
-        track = voice_command.replace(self.keyword, '', 1)
-
-        global playshell
-        if (playshell == None):
-            playshell = subprocess.Popen(["/usr/local/bin/mpsyt",""],stdin=subprocess.PIPE ,stdout=subprocess.PIPE)
-
-        playshell.stdin.write(bytes('/' + track + '\n1\n', 'utf-8'))
-        playshell.stdin.flush()
-
-        gpio.setmode(gpio.BCM)
-        gpio.setup(23, gpio.IN)
-
-        while gpio.input(23):
-             time.sleep(1)
-
-        while True:
-            if gpio.input(23):
-                pkill = subprocess.Popen(["/usr/bin/pkill","vlc"],stdin=subprocess.PIPE)
-                break
-            time.sleep(0.1)
-
-# Power
-class PowerCommand(object):
-    """Shutdown or reboot the pi"""
-
-    def __init__(self, say, command):
-        self.say = say
-        self.command = command
-
-    def run(self, voice_command):
-        if self.command == "shutdown":
-            self.say("Shutting down, goodbye")
-            subprocess.call("sudo shutdown now", shell=True)
-        elif self.command == "reboot":
-            self.say("Rebooting")
-            subprocess.call("sudo shutdown -r now", shell=True)
-        else:
-            logging.error("Error identifying power command.")
-            self.say("Sorry I didn't identify that command")
 
 def make_actor(say):
     """Create an actor to carry out the user's commands."""
@@ -331,9 +223,9 @@ def make_actor(say):
     # =========================================
     # Makers! Add your own voice commands here.
     # =========================================
-    actor.add_keyword(_('shut down'), PowerCommand(say, 'shutdown'))
-    actor.add_keyword(_('reboot'), PowerCommand(say, 'reboot'))
-    actor.add_keyword(_('radio'), playRadio(say,_('radio')))
+    actor.add_keyword(_('shut down'), power(say, 'shutdown'))
+    actor.add_keyword(_('reboot'), power(say, 'reboot'))
+    actor.add_keyword(_('radio'), radio(say,_('radio')))
     actor.add_keyword(_('play'), play(say,_('play')))
 
     return actor
