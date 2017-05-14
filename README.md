@@ -1,5 +1,5 @@
 # raspi-voice-actions
-Created this repo to separate added actions from the default aiyprojects-raspbian repo code.  
+Separate added actions from default aiyprojects-raspbian repo code.  
 
 ## Fun actions for AIY Projects
 Actions for https://github.com/google/aiyprojects-raspbian/blob/master/src/action.py
@@ -16,3 +16,7 @@ rm ~/voice-recognizer-raspi/src/action.py
 # Create the symlink
 sudo ln -s ~/raspi-voice-actions/action.py action.py
 ```
+
+### Raspberry Pi AIY Projects forum
+All of these actions were contributed by members of the Raspberry Pi forums.  
+To get more ideas for fun actions visit: https://www.raspberrypi.org/forums/viewforum.php?f=114
