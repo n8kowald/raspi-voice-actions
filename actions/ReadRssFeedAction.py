@@ -3,7 +3,7 @@ import time
 import logging
 
 ##
-# readrssfeed.py
+# ReadRssFeedAction.py
 # Feedparser is used to parse the rss feeds (for more information: http://www.pythonforbeginners.com/feedparser/using-feedparser-in-python)
 #
 # Created by: @markblue777 - https://www.raspberrypi.org/forums/viewtopic.php?p=1160812#p1160812
@@ -12,10 +12,10 @@ import logging
 # feedparser - install: sudo pip install feedparser
 #
 # Usage:
-# actor.add_keyword(_('news headlines'), readrssfeed(say, "http://feeds.bbci.co.uk/news/rss.xml?edition=uk", "title", 10))
-# actor.add_keyword(_('currency check'), readrssfeed(say, "http://gbp.fxexchangerate.com/AUD.xml", "summary", 1, True))
+# actor.add_keyword(_('news headlines'), ReadRssFeedAction(say, "http://feeds.bbci.co.uk/news/rss.xml?edition=uk", "title", 10))
+# actor.add_keyword(_('currency check'), ReadRssFeedAction(say, "http://gbp.fxexchangerate.com/AUD.xml", "summary", 1, True))
 ##
-class readrssfeed(object):
+class ReadRssFeedAction(object):
     # This is the BBC rss feed for top news in the uk
     # http://feeds.bbci.co.uk/news/rss.xml?edition=uk
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# power.py
+# PowerAction.py
 # Shutdown or reboot the Pi with your voice
 #
 # Created by @ktinkerer: https://github.com/ktinkerer/aiyprojects-raspbian/blob/shutdown/src/action.py
@@ -8,7 +8,7 @@
 import logging
 import subprocess
 
-class power(object):
+class PowerAction(object):
     def __init__(self, say, command):
         self.say = say
         self.command = command

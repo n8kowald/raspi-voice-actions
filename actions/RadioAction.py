@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# radio.py
+# RadioAction.py
 # Play radio stations with 'radio %station%'
 #
 # Created by @ktinkerer: https://www.raspberrypi.org/forums/viewtopic.php?p=1160155#p1160155
@@ -13,7 +13,7 @@ import RPi.GPIO as gpio
 import subprocess
 import time
 
-class radio(object):
+class RadioAction(object):
 
     radio_stations = {
         'absolute 80s': "http://network.absoluteradio.co.uk/core/audio/mp3/live.pls?service=a8bb",

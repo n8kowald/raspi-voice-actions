@@ -23,10 +23,10 @@ import os
 import sys
 # Get dir this is checked out to
 sys.path.append(os.path.dirname(os.path.realpath(__file__)) + '/actions/')
-from play import *
-from radio import *
-from power import *
-from readrssfeed import *
+from PlayAction import *
+from RadioAction import *
+from PowerAction import *
+from ReadRssFeedAction import *
 
 # =============================================================================
 #
@@ -226,12 +226,12 @@ def make_actor(say):
     # =========================================
     # Makers! Add your own voice commands here.
     # =========================================
-    actor.add_keyword(_('shut down'), power(say, 'shutdown'))
-    actor.add_keyword(_('reboot'), power(say, 'reboot'))
-    actor.add_keyword(_('radio'), radio(say,_('radio')))
-    actor.add_keyword(_('play'), play(say,_('play')))
-    actor.add_keyword(_('news headlines'), readrssfeed(say, "http://feeds.bbci.co.uk/news/rss.xml?edition=uk", "title", 10))
-    actor.add_keyword(_('currency check'), readrssfeed(say, "http://gbp.fxexchangerate.com/AUD.xml", "summary", 1, True))
+    actor.add_keyword(_('shut down'), PowerAction(say, 'shutdown'))
+    actor.add_keyword(_('reboot'), PowerAction(say, 'reboot'))
+    actor.add_keyword(_('radio'), RadioAction(say,_('radio')))
+    actor.add_keyword(_('play'), PlayAction(say,_('play')))
+    actor.add_keyword(_('news headlines'), ReadRssFeedAction(say, "http://feeds.bbci.co.uk/news/rss.xml?edition=uk", "title", 10))
+    actor.add_keyword(_('currency check'), ReadRssFeedAction(say, "http://gbp.fxexchangerate.com/AUD.xml", "summary", 1, True))
 
     return actor
 

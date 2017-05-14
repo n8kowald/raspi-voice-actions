@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# play.py
+# PlayAction.py
 
 # Play music from YouTube
 # Created by @mikerr: https://www.raspberrypi.org/forums/viewtopic.php?p=1158827#p1158827
@@ -15,7 +15,7 @@ import subprocess
 import time
 
 playshell = None
-class play(object):
+class PlayAction(object):
 
     def __init__(self, say, keyword):
         self.say = say
