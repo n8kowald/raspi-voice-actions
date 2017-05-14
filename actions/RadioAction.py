@@ -26,8 +26,8 @@ class RadioAction(object):
         'bbc 5': "http://open.live.bbc.co.uk/mediaselector/5/redir/version/2.0/mediaset/http-icy-mp3-a-stream/proto/http/vpid/bbc_radio_five_live",
         'bbc 6': "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_6music_mf_p?s=1494265223",
         # Thanks to philicibine for this! https://www.raspberrypi.org/forums/viewtopic.php?p=1161489#p1161489
-        'bbc news': "http://wsdownload.bbc.co.uk/worldservice/css/96mp3/latest/bbcnewssummary.mp3",
         'bbc world service': "http://wsdownload.bbc.co.uk/worldservice/meta/live/shoutcast/mp3/eieuk.pls",
+        'news': "http://wsdownload.bbc.co.uk/worldservice/css/96mp3/latest/bbcnewssummary.mp3",
         'fresh fm': "http://www.fresh927.com.au/streams/liveAAC.m3u",
         'home': "http://www.australianliveradio.com/5aa.m3u",
         'lbc': 'http://media-ice.musicradio.com/LBCLondonMP3Low.m3u',
