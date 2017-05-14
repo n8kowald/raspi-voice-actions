@@ -1,5 +1,6 @@
 import feedparser
 import time
+import logging
 
 ##
 # readrssfeed.py
@@ -24,10 +25,12 @@ class readrssfeed(object):
     # -(for example bbc rss returns around 62 items and you may not want all of
     # them read out so this allows limiting
     #######################################################################################
-    def __init__(self, say, url, feedCount):
+    def __init__(self, say, url, targetElement, feedCount, firstLineOnly = False):
         self.say = say
         self.rssFeedUrl = url
+        self.targetElement = targetElement
         self.feedCount = feedCount
+        self.firstLineOnly = firstLineOnly
 
     def run(self, voice_command):
         res = self.getNewsFeed()
@@ -39,8 +42,35 @@ class readrssfeed(object):
         # loop res and speak the title of the rss feed
         # here you could add further fields to read out
         for index in range(len(res)):
-            itemNumber = str(index + 1)
-            self.say("Item " + itemNumber + ". " + res[index].title_detail.value)
+
+            # Test if the target element exists
+            try:
+                content = res[index][self.targetElement]
+            except KeyError:
+                logging.info('Target element ' + self.targetElement + ' does NOT exist in this feed')
+                self.say('Target element, ' + self.targetElement + ' does not exist in this feed')
+                results = str(res[index])
+                logging.info('Here is the available info from this feed: ' + results);
+                return
+
+            # If more than one item is requested: add the item number to the voice
+            if (index > 1):
+                itemNumber = str(index + 1)
+                sayPrefix = 'Item ' + itemNumber + '. '
+            else:
+                sayPrefix = ''
+
+            # Replace HTML <br> tags with newlines
+            content = content.replace('<br/>', '\n').replace('<br>', '\n').replace('<br />', '\n')
+
+            # Remove all but first lines if firstLineOnly is True
+            if self.firstLineOnly:
+                content = content.split('\n', 1)[0]
+
+            # Speak!
+            #logging.info('Available info from ' + self.url + ': ' + res[index]);
+            logging.info('RSS feed content for say: ' + content);
+            self.say(sayPrefix + content)
 
         # TODO: Stop voice by pressing the button
 

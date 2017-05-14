@@ -230,7 +230,8 @@ def make_actor(say):
     actor.add_keyword(_('reboot'), power(say, 'reboot'))
     actor.add_keyword(_('radio'), radio(say,_('radio')))
     actor.add_keyword(_('play'), play(say,_('play')))
-    actor.add_keyword(_('news headlines'), readrssfeed(say, "http://feeds.bbci.co.uk/news/rss.xml?edition=uk", 10))
+    actor.add_keyword(_('news headlines'), readrssfeed(say, "http://feeds.bbci.co.uk/news/rss.xml?edition=uk", "title", 10))
+    actor.add_keyword(_('currency check'), readrssfeed(say, "http://gbp.fxexchangerate.com/AUD.xml", "summary", 1, True))
 
     return actor
 
