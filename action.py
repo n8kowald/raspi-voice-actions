@@ -27,6 +27,7 @@ from PlayAction import *
 from RadioAction import *
 from PowerAction import *
 from ReadRssFeedAction import *
+from KilianAction import *
 
 # =============================================================================
 #
@@ -232,6 +233,7 @@ def make_actor(say):
     actor.add_keyword(_('play'), PlayAction(say,_('play')))
     actor.add_keyword(_('news headlines'), ReadRssFeedAction(say, "http://feeds.bbci.co.uk/news/rss.xml?edition=uk", "title", 5))
     actor.add_keyword(_('currency check'), ReadRssFeedAction(say, "http://gbp.fxexchangerate.com/AUD.xml", "summary", 1, True))
+    actor.add_keyword(_('kilian'), KilianAction(say, 'kilian'))
     actor.add_keyword(_('voice actions'), SpeakAction(say, """The custom actions are: radio, play, news headlines, currency check, reboot and shutdown. To hear this list again, say, custom actions"""))
 
     return actor

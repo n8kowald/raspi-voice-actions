@@ -7,6 +7,7 @@
 #
 # Dependencies:
 #   * mps-youtube, youtube-dl - install: sudo pip3 install mps-youtube youtube-dl
+#                               configure it: mpsyt set player vlc, set playerargs vlc, exit
 #   * vlc - run: sudo apt-get install vlc
 ##
 import logging
